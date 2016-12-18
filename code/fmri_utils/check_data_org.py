@@ -129,7 +129,7 @@ def main():
     hash_file = "data_hashes.txt"
 
     # # Generate hash_file for all *.nii* files in data directory
-    # make_nii_hashes_nested(data_directory, hash_file)
+    #make_nii_hashes_nested(data_directory, hash_file)
 
     # Call function to validate data in data directory
     validate_data(data_directory, pjoin(data_directory, hash_file))

@@ -11,12 +11,12 @@ from fmri_utils.func_preproc.rotations import x_rotmat, y_rotmat, z_rotmat
 def get_data_affine(fname):
     """ get data and affine from filename
 
-    Parameters
+    Input
     ----------
     fname : str
         *.nii or *.nii.gz file name
 
-    Returns
+    Output
     -------
     data : array shape (I, J, K) or (I, J, K, T)
         array with 3D or 4D data from image file
@@ -33,12 +33,12 @@ def get_data_affine(fname):
 def make_rot_mat(rotations):
     """ make rotation matrix from radian params
 
-    Parameters
+    Input
     ----------
     rotations : list
         3 radian values, e.g. [pi, 0, -pi]
 
-    Returns
+    Output
     -------
     rot_mat : array shape (3, 3)
         rotation matrix
@@ -57,12 +57,12 @@ def decompose_rot_mat(R):
             r_y -> (-pi/2, pi/2)
             r_z -> (-pi, pi)
 
-    Parameters
+    Input
     ----------
     rot_mat : array shape (3, 3)
         rotation matrix
 
-    Returns
+    Output
     -------
     rotations : list
         3 radian values, e.g. [pi, 0, -pi]

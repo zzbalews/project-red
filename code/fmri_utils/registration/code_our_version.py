@@ -23,7 +23,7 @@ def resample(static_data, moving_data, static_affine, moving_affine):
     """
     resample moving image in static image space
 
-    Parameters
+    Input
     ----------
     static_data : array shape (I, J, K)
         array with 3D data from static image
@@ -37,7 +37,7 @@ def resample(static_data, moving_data, static_affine, moving_affine):
     moving_affine : array shape (4, 4)
         affine for moving image
 
-    Returns
+    Output
     -------
     moving_in_stat : array shape (I, J, K)
         array with 3D from moving image resampled in static image space
@@ -57,7 +57,7 @@ def transform_cmass(static_data, moving_data, static_affine, moving_affine):
     get moving image affine, to use when resampling moving in static space
         --> matches center of mass of moving image to static image (in ref space)
 
-    Parameters
+    Input
     ----------
     static_data : array shape (I, J, K)
         array with 3D data from static image
@@ -71,7 +71,7 @@ def transform_cmass(static_data, moving_data, static_affine, moving_affine):
     moving_affine : array shape (4, 4)
         starting affine for mvoing image
 
-    Returns
+    Output
     -------
     change_affine : array shape (4, 4)
         new affine to adjust moving; updated_moving_affine = change_affine.dot(moving_affine)
@@ -99,7 +99,7 @@ def MI_cost(parameters, subset, fixed_parameters, static_data, moving_data, stat
         values from optimizer and returns similartiy metric (negative
         mutual information)
 
-    Parameters
+    Input
     ----------
     parameters : vector length (N,)
         vector with variable parameters for optimizer
@@ -126,7 +126,7 @@ def MI_cost(parameters, subset, fixed_parameters, static_data, moving_data, stat
     moving_affine : array shape (4, 4)
         affine for moving image
 
-    Returns
+    Output
     -------
     neg_MI : float
         negative mutual information value
@@ -157,7 +157,7 @@ def transform_rigid(static_data, moving_data, static_affine, moving_affine, star
     get moving image affine, to use when resampling moving in static space
         --> does rigid (3 trans, 3 rot) alignment, max `iterations`
 
-    Parameters
+    Input
     ----------
     static_data : array shape (I, J, K)
         array with 3D data from static image
@@ -182,7 +182,7 @@ def transform_rigid(static_data, moving_data, static_affine, moving_affine, star
         'translations' = best translations only (3 params)
         'rotations' = best rotations only (3 params)
 
-    Returns
+    Output
     -------
     change_affine : array shape (4, 4)
         new affine to adjust moving; updated_moving_affine = change_affine.dot(moving_affine)
@@ -222,7 +222,7 @@ def transform_affine(static_data, moving_data, static_affine, moving_affine, sta
     get moving image affine, to use when resampling moving in static space
         --> does affine (3 trans, 3 rot, 3 scale, 3 shear) alignment, max `iterations`
 
-    Parameters
+    Input
     ----------
     static_data : array shape (I, J, K)
         array with 3D data from static image
@@ -247,7 +247,7 @@ def transform_affine(static_data, moving_data, static_affine, moving_affine, sta
         'translations' = best translations only (3 params)
         'rotations' = best rotations only (3 params)
 
-    Returns
+    Output
     -------
     change_affine : array shape (4, 4)
         new affine to adjust moving; updated_moving_affine = change_affine.dot(moving_affine)
@@ -289,7 +289,7 @@ def transform_affine(static_data, moving_data, static_affine, moving_affine, sta
 def mutual_info(static_data, moving_data, nbins):
     """
     get mutual information (MI) between 2 arrays
-    Parameters
+    Input
     ----------
     static_data : array shape (I, J, ...)
         array of image 1
@@ -300,7 +300,7 @@ def mutual_info(static_data, moving_data, nbins):
     nbins : int
         number bins for MI
 
-    Returns
+    Output
     -------
     MI : float
         mutual information value
@@ -327,7 +327,8 @@ def neg_mutual_info(static, resampled):
 def params2affine(params):
     """
     create affine from list of parameters
-    Parameters
+
+    Input
     ----------
     params : list length N
         list of parameters; default no change if parameters not given
@@ -336,7 +337,7 @@ def params2affine(params):
         N=9 -> [3 translations] + [3 rotations] + [3 scales] (+ [0]*3)
         N=15 -> [3 translations] + [3 rotations] + [3 scales] + [3 shears]
 
-    Returns
+    Output
     -------
     affine : array shape (4, 4)
         affine from parameters
@@ -381,7 +382,7 @@ def affine_registration(static_filename, moving_filename, SCALE, affines_dir, it
     takes static and moving files, downsampled by SCALE factor
     saves affines from each step as *.txt in output_affines dir
 
-    Parameters
+    Input
     ----------
     static_filename : str
         path to static file
@@ -398,7 +399,7 @@ def affine_registration(static_filename, moving_filename, SCALE, affines_dir, it
     iterations : int
         max number iterations in optimizations
 
-    Returns
+    Output
     -------
     final_affine : array shape (4, 4)
         best affine from full optimization
@@ -440,7 +441,7 @@ def rescale_img(img_filename, SCALE):
     """
     downsample image by SCALE
 
-    Parameters
+    Input
     ----------
     img_filename : str
         path to 3D image file
@@ -448,7 +449,7 @@ def rescale_img(img_filename, SCALE):
     SCALE : float
         >0, rescale 3D array axes by SCALE factor (useful to downsample images for faster registration)
 
-    Returns
+    Output
     -------
     img_scaled_data : array shape (I, J, K)
         array with downsampled 3D data
@@ -475,7 +476,7 @@ def save_affine(affine, affines_dir, affine_filename):
     """
     save affine *.txt
 
-    Parameters
+    Input
     ----------
     affine : array shape (4, 4)
         affine for 3D array
@@ -486,7 +487,7 @@ def save_affine(affine, affines_dir, affine_filename):
     affine_filename : str
         filename for output text file
 
-    Returns
+    Output
     -------
     None
 
@@ -501,7 +502,7 @@ def load_affine(affines_dir, affine_filename):
     """
     turn affine *.txt into numpy array
 
-    Parameters
+    Input
     ----------
     affines_dir : str
         dir where `affine_filename` is saved
@@ -509,7 +510,7 @@ def load_affine(affines_dir, affine_filename):
     affine_filename : str
         filename for input text file
 
-    Returns
+    Output
     -------
     affine : array shape (4, 4)
         affine for 3D array
@@ -530,7 +531,7 @@ def generate_transformed_images(static_filename, moving_filename, SCALE, affines
 
     **MUST USE SAME ARGS AS `affine_registration`
 
-    Parameters
+    Input
     ----------
     static_filename : str
         path to static file
@@ -552,7 +553,7 @@ def generate_transformed_images(static_filename, moving_filename, SCALE, affines
         'nii' = only nii files
         'both' = png and nii files
 
-    Returns
+    Output
     -------
     None
 
